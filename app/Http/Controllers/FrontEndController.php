@@ -18,6 +18,7 @@ class FrontEndController extends Controller
 {
     public function index(Request $request)
     {
+        // dd('ok');
         $sekolah = Sekolah::first();
         $tahunLulus = TahunLulus::orderBy('tahun_lulus', 'asc')->get();
 
@@ -31,32 +32,19 @@ class FrontEndController extends Controller
             });
         })->get();
 
+
         return view('frontend.home', compact('testimoni', 'tahunLulus', 'filterTahun', 'sekolah'));
     }
 
     public function dashboard(Request $request)
     {
+
         $id_alumni = Auth::guard('alumni')->user()->id_alumni;
         $tracerKuliah = TracerKuliah::where('id_alumni', $id_alumni)->get()->first();
         $tracerKerja = TracerKerja::where('id_alumni', $id_alumni)->get()->first();
         $testimoni = Testimoni::with('alumni')->where('id_alumni', $id_alumni)->get();
 
-        // Ambil daftar tahun lulus unik
-        $tahunLulus = Alumni::distinct()->pluck('id_tahun_lulus');
-
-
-        // Ambil parameter filter dari request
-        $filterTahun = $request->get('tahun_lulus');
-        // Query testimoni dengan filter
-        $testimoniQuery = Testimoni::with('alumni')->where('id_alumni', $id_alumni);
-        if ($filterTahun) {
-            $testimoniQuery->whereHas('alumni', function ($query) use ($filterTahun) {
-                $query->where('tahun_lulus', $filterTahun);
-            });
-        }
-        $testimoni = $testimoniQuery->get();
-
-        return view('alumni.dashboard', compact('tracerKuliah', 'tracerKerja', 'testimoni', 'tahunLulus', 'filterTahun'));
+        return view('alumni.dashboard', compact('tracerKuliah', 'tracerKerja', 'testimoni'));
     }
 
     public function create()
@@ -165,20 +153,30 @@ class FrontEndController extends Controller
     {
         return view('alumni.autentikasi');
     }
-    
+
     public function autentikasiStore(Request $request)
     {
         $request->validate([
             'email' => 'required|email',
-            'new_password' => 'required|min:8',
-            'new_password_confirmation' => 'required|confirmed:new_password',
+            'new_password' => 'nullable|min:8|confirmed',
         ]);
-        
 
-        if (Auth::guard('alumni')->user()->update(['email' => $request->email, 'password' => Hash::make($request->new_password)])) {
-            return redirect()->route('alumni.dashboard');
+        $user = Auth::guard('alumni')->user();
+
+        // Update email
+        $user->email = $request->email;
+
+        // Jika password diisi, maka update password
+        if ($request->filled('new_password')) {
+            $user->password = Hash::make($request->new_password);
+        }
+
+        // Simpan perubahan
+        if ($user->save()) {
+            return redirect()->route('alumni.dashboard')->with('success', 'Data berhasil diperbarui.');
         } else {
-            return redirect()->route('alumni.autentikasi')->with('error', 'Email atau password salah.');
+            return redirect()->route('alumni.autentikasi')->with('error', 'Terjadi kesalahan saat memperbarui data.');
         }
     }
+
 }

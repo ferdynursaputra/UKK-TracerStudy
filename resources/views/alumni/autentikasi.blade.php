@@ -74,7 +74,7 @@
                                 <label for="new_password" class="form-label fw-bold">Password Baru</label>
                                 <div class="input-group ">
                                     <span class="input-group-text "><i class="bi bi-lock "></i></span>
-                                    <input type="password" id="new_password" name="new_password" class="form-control" placeholder="Masukkan password baru" required>
+                                    <input type="password" id="new_password" name="new_password" class="form-control" placeholder="Masukkan password baru" >
                                 </div>
                                 <small class="form-text text-muted">Minimal 8 karakter.</small>
                             </div>
@@ -84,7 +84,7 @@
                                 <label for="new_password_confirmation" class="form-label fw-bold">Konfirmasi Password Baru</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="bi bi-lock"></i></span>
-                                    <input type="password" id="new_password_confirmation" name="new_password_confirmation" class="form-control" placeholder="Konfirmasi password baru" required>
+                                    <input type="password" id="new_password_confirmation" name="new_password_confirmation" class="form-control" placeholder="Konfirmasi password baru" >
                                 </div>
                             </div>
                             

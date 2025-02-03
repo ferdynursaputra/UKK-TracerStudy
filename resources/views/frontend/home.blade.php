@@ -11,6 +11,14 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <!-- SweetAlert2 CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <style>
+        #testimoni {
+         scroll-margin-top: 70px;
+        }
+        #contact {
+         scroll-margin-top: 70px;
+        }
+    </style>
 </head>
 
 <body style="background-color: #f8f9fa;">
@@ -29,6 +37,9 @@
                     </li>
                     <li class="nav-item">
                         <a href="#about" class="nav-link text-white">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#testimoni" class="nav-link text-white">Testimoni</a>
                     </li>
                     <li class="nav-item">
                         <a href="#contact" class="nav-link text-white">Contact</a>
@@ -75,7 +86,8 @@
         <div class="container text-center text-md-start">
             <div class="row align-items-center">
                 <div class="col-md-6">
-                    <h1 class="fw-bold">Selamat datang di Tracer Study {{ $sekolah->nama_sekolah ?? 'Sekolah Anda' }}</h1>
+                    <h1 class="fw-bold">Selamat datang di Tracer Study {{ $sekolah->nama_sekolah ?? 'Sekolah Anda' }}
+                    </h1>
                     <p style="font-size: 18px">Tracer Study di aplikasi sekolah kami bertujuan untuk mengumpulkan
                         masukan berharga dari alumni mengenai pengalaman pendidikan mereka dan dampaknya terhadap dunia
                         kerja. Dengan fitur ini, alumni dapat memberikan informasi tentang relevansi kurikulum,
@@ -191,7 +203,7 @@
                 </form>
             </div>
 
-        
+
     </section>
 
     <!-- Footer -->
@@ -201,10 +213,10 @@
                 <!-- Bagian Alamat dan Kontak -->
                 <div class="col-md-4 mb-4">
                     <h5 class="fw-bold mb-3">Alamat:</h5>
-                    <p class="mb-2">{{$sekolah->alamat}}</p>
-                    <p><strong>Telepon: </strong>{{$sekolah->no_telp}}</p>
-                    <p><strong>Website: </strong>{{$sekolah->website}}</p>
-                    <p><strong>Email: </strong>{{$sekolah->email}}</p>
+                    <p class="mb-2">{{ $sekolah->alamat }}</p>
+                    <p><strong>Telepon: </strong>{{ $sekolah->no_telp }}</p>
+                    <p><strong>Website: </strong>{{ $sekolah->website }}</p>
+                    <p><strong>Email: </strong>{{ $sekolah->email }}</p>
                 </div>
 
                 <!-- Bagian Media Sosial -->
@@ -212,15 +224,18 @@
                     <h5 class="fw-bold mb-3">Ikuti Kami</h5>
                     <div class="d-flex justify-content-center">
                         <!-- Ikon YouTube -->
-                        <a href="https://www.youtube.com/@smkantartika1sidoarjo726" class="text-decoration-none me-3" target="_blank">
+                        <a href="https://www.youtube.com/@smkantartika1sidoarjo726" class="text-decoration-none me-3"
+                            target="_blank">
                             <i class="bi bi-youtube fs-2 text-danger"></i> <!-- Ikon YouTube -->
                         </a>
                         <!-- Ikon TikTok -->
-                        <a href="https://www.tiktok.com/@smkantartika1sda" class="text-decoration-none me-3" target="_blank">
+                        <a href="https://www.tiktok.com/@smkantartika1sda" class="text-decoration-none me-3"
+                            target="_blank">
                             <i class="bi bi-tiktok fs-2 text-black"></i> <!-- Ikon TikTok -->
                         </a>
                         <!-- Ikon Instagram -->
-                        <a href="https://www.instagram.com/smkantartika1sda/" class="text-decoration-none" target="_blank">
+                        <a href="https://www.instagram.com/smkantartika1sda/" class="text-decoration-none"
+                            target="_blank">
                             <i class="bi bi-instagram fs-2 text-black"></i> <!-- Ikon Instagram -->
                         </a>
                     </div>
@@ -229,7 +244,8 @@
                 <!-- Bagian Hak Cipta -->
                 <div class="col-md-4 mb-4">
                     <h5 class="fw-bold mb-3">Tentang Kami</h5>
-                    <p class="mb-2">{{$sekolah->nama_sekolah}} adalah sekolah kejuruan yang berkomitmen untuk menghasilkan lulusan berkualitas.</p>
+                    <p class="mb-2">{{ $sekolah->nama_sekolah }} adalah sekolah kejuruan yang berkomitmen untuk
+                        menghasilkan lulusan berkualitas.</p>
                     <p class="mb-0">&copy; {{ date('Y') }} SMK Antartika 1 SDA. All Rights Reserved.</p>
                 </div>
             </div>
@@ -239,6 +255,12 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has("tahun_lulus")) {
+                window.location.hash = "#testimoni";
+            }
+
+
             // Tangkap tombol logout
             const logoutButton = document.getElementById('logout-button');
 
