@@ -23,7 +23,8 @@
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label class="form-label fw-bold">Nama Lengkap</label>
-                        <p class="form-control-plaintext">{{ Auth::guard('alumni')->user()->nama_depan }} {{ Auth::guard('alumni')->user()->nama_belakang }}</p>
+                        <p class="form-control-plaintext">{{ Auth::guard('alumni')->user()->nama_depan }}
+                            {{ Auth::guard('alumni')->user()->nama_belakang }}</p>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label class="form-label fw-bold">NISN</label>
@@ -51,7 +52,9 @@
                     </div>
                     <div class="col-md-6 mb-3">
                         <label class="form-label fw-bold">Tanggal Lahir</label>
-                        <p class="form-control-plaintext">{{ Auth::guard('alumni')->user()->tgl_lahir ? date('d F Y', strtotime(Auth::guard('alumni')->user()->tgl_lahir)) : '' }}</p>
+                        <p class="form-control-plaintext">
+                            {{ Auth::guard('alumni')->user()->tgl_lahir ? date('d F Y', strtotime(Auth::guard('alumni')->user()->tgl_lahir)) : '' }}
+                        </p>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label class="form-label fw-bold">Alamat</label>
@@ -63,11 +66,13 @@
                     </div>
                     <div class="col-md-6 mb-3">
                         <label class="form-label fw-bold">Tahun Lulus</label>
-                        <p class="form-control-plaintext">{{ Auth::guard('alumni')->user()->tahunLulus->tahun_lulus }}</p>
+                        <p class="form-control-plaintext">{{ Auth::guard('alumni')->user()->tahunLulus->tahun_lulus }}
+                        </p>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label class="form-label fw-bold">Konsentrasi Keahlian</label>
-                        <p class="form-control-plaintext">{{ Auth::guard('alumni')->user()->konsentrasiKeahlian->konsentrasi_keahlian }}</p>
+                        <p class="form-control-plaintext">
+                            {{ Auth::guard('alumni')->user()->konsentrasiKeahlian->konsentrasi_keahlian }}</p>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label class="form-label fw-bold">Status Alumni</label>
@@ -115,15 +120,24 @@
                         </div>
                         <div class="col-md-6 mb-3">
                             <label class="form-label fw-bold">Linier dengan SMK</label>
-                            <p class="form-control-plaintext">{{ $tracerKuliah->tracer_kuliah_linier }}</p>
+                            <p class="form-control-plaintext">
+                                @if ($tracerKuliah->tracer_kuliah_linier === '1')
+                                    Ya
+                                @elseif ($tracerKuliah->tracer_kuliah_linier === '0')
+                                    Tidak
+                                @endif
+                            </p>
+
                         </div>
                         <div class="col-md-6 mb-3">
+
                             <label class="form-label fw-bold">Alamat Kampus</label>
                             <p class="form-control-plaintext">{{ $tracerKuliah->tracer_kuliah_alamat }}</p>
                         </div>
                     @else
                         <div class="col-12">
-                            <p class="text-danger">Informasi tracer kuliah belum tersedia. Silakan lengkapi data Anda.</p>
+                            <p class="text-danger">Informasi tracer kuliah belum tersedia. Silakan lengkapi data Anda.
+                            </p>
                         </div>
                     @endif
                 </div>
@@ -163,16 +177,20 @@
                             <p class="form-control-plaintext">{{ $tracerKerja->tracer_kerja_alamat }}</p>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label class="form-label fw-bold">Tanggal Mulai</label>
-                            <p class="form-control-plaintext">{{ $tracerKerja->tracer_kerja_tgl_mulai ? date('d F Y', strtotime($tracerKerja->tracer_kerja_tgl_mulai)) : '' }}</p>
+                            <label class="form-label fw-bold">Tanggal Mulai Kerja</label>
+                            <p class="form-control-plaintext">
+                                {{ $tracerKerja->tracer_kerja_tgl_mulai ? date('d F Y', strtotime($tracerKerja->tracer_kerja_tgl_mulai)) : '' }}
+                            </p>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label class="form-label fw-bold">Gaji</label>
-                            <p class="form-control-plaintext">{{ 'Rp. ' . number_format($tracerKerja->tracer_kerja_gaji, 0, ',', '.') }}</p>
+                            <p class="form-control-plaintext">
+                                {{ 'Rp. ' . number_format($tracerKerja->tracer_kerja_gaji, 0, ',', '.') }}</p>
                         </div>
                     @else
                         <div class="col-12">
-                            <p class="text-danger">Informasi tracer kerja belum tersedia. Silakan lengkapi data Anda.</p>
+                            <p class="text-danger">Informasi tracer kerja belum tersedia. Silakan lengkapi data Anda.
+                            </p>
                         </div>
                     @endif
                 </div>

@@ -18,6 +18,7 @@ class AlumniProfileController extends Controller
     {
         $id_alumni = Auth::guard('alumni')->user()->id_alumni;
         $tracerKuliah = TracerKuliah::where('id_alumni', $id_alumni)->first();
+        // dd($tracerKuliah->tracer_kuliah_kampus);
         $tracerKerja = TracerKerja::where('id_alumni', $id_alumni)->get()->first();
         return view('alumni.profile', compact('tracerKuliah', 'tracerKerja'));
     }
@@ -31,14 +32,14 @@ class AlumniProfileController extends Controller
         // dd($alumni->tracerKuliah->tracer_kuliah_kampus);
         return view('alumni.edit-profile', compact('alumni', 'tahunLulus', 'konsentrasiKeahlian', 'statusAlumni'));
     }
-    public function editTracerKuliah($id)
-    {
-        $alumni = Auth::guard('alumni')->user(); // Mendapatkan data alumni yang login
-        $tahunLulus = TahunLulus::orderBy('tahun_lulus', 'asc')->get();
-        $konsentrasiKeahlian = KonsentrasiKeahlian::all();
-        $statusAlumni = StatusAlumni::all();
-        return view('alumni.edit-profile', compact('alumni', 'tahunLulus', 'konsentrasiKeahlian', 'statusAlumni'));
-    }
+    // public function editTracerKuliah($id)
+    // {
+    //     $alumni = Auth::guard('alumni')->user(); // Mendapatkan data alumni yang login
+    //     $tahunLulus = TahunLulus::orderBy('tahun_lulus', 'asc')->get();
+    //     $konsentrasiKeahlian = KonsentrasiKeahlian::all();
+    //     $statusAlumni = StatusAlumni::all();
+    //     return view('alumni.edit-profile', compact('alumni', 'tahunLulus', 'konsentrasiKeahlian', 'statusAlumni'));
+    // }
 
     public function update(Request $request)
     {
@@ -46,7 +47,7 @@ class AlumniProfileController extends Controller
         $alumni = Alumni::findOrFail(Auth::guard('alumni')->user()->id_alumni);
         $tracerKuliah = TracerKuliah::where('id_tracer_kuliah', $request->id_tracer_kuliah)->first();
         $tracerKerja = TracerKerja::where('id_tracer_kerja', $request->id_tracer_kerja)->first();
-        
+
         $rules = [
             'nama_depan' => 'required|string|max:50',
             'nama_belakang' => 'required|string|max:50',
@@ -63,22 +64,22 @@ class AlumniProfileController extends Controller
             'id_status_alumni' => 'required',
 
             // tracer kuliah
-            'tracer_kuliah_kampus' => 'required',
-            'tracer_kuliah_status' => 'required',
-            'tracer_kuliah_jenjang' => 'required',
-            'tracer_kuliah_jurusan' => 'required',
-            'tracer_kuliah_linier' => 'required',
-            'tracer_kuliah_alamat' => 'required',
+            'tracer_kuliah_kampus' => '',
+            'tracer_kuliah_status' => '',
+            'tracer_kuliah_jenjang' => '',
+            'tracer_kuliah_jurusan' => '',
+            'tracer_kuliah_linier' => '',
+            'tracer_kuliah_alamat' => '',
 
             // tracer kerja
-            'tracer_kerja_pekerjaan' => 'required',
-            'tracer_kerja_nama' => 'required',
-            'tracer_kerja_jabatan' => 'required',
-            'tracer_kerja_status' => 'required',
-            'tracer_kerja_lokasi' => 'required',
-            'tracer_kerja_alamat' => 'required',
-            'tracer_kerja_tgl_mulai' => 'required',
-            'tracer_kerja_gaji' => 'required',
+            'tracer_kerja_pekerjaan' => '',
+            'tracer_kerja_nama' => '',
+            'tracer_kerja_jabatan' => '',
+            'tracer_kerja_status' => '',
+            'tracer_kerja_lokasi' => '',
+            'tracer_kerja_alamat' => '',
+            'tracer_kerja_tgl_mulai' => '',
+            'tracer_kerja_gaji' => 'string|max:50',
         ];
 
         // Tambahkan validasi kondisional untuk email
@@ -93,15 +94,19 @@ class AlumniProfileController extends Controller
         if ($request->nik !== $alumni->nik) {
             $rules['nik'] = 'required|string|unique:tbl_alumni,nik';
         }
-        
+
         // $alumni = Auth::guard('alumni')->user();
         $validatedData = $request->validate($rules);
         $alumni->update($validatedData);
-        $tracerKuliah->update($request->all());
-        $tracerKerja->update($request->all());
+        if ($tracerKuliah) {
+            $tracerKuliah->update($validatedData);
+        }
+        if ($tracerKerja) {
+            $tracerKerja->update($validatedData);
+        }
 
         return redirect()->route('alumni.profile')->with('success', 'Profil berhasil diperbarui!');
     }
-  
+
 
 }

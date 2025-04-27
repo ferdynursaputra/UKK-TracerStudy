@@ -104,6 +104,15 @@
                     <div class="row g-3">
                         <!-- Kolom 1 -->
                         <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="nama_depan" class="form-label">Nama Depan</label>
+                                    <input type="text" name="nama_depan" id="nama_depan" class="form-control" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="nama_belakang" class="form-label">Nama Belakang</label>
+                                    <input type="text" name="nama_belakang" id="nama_belakang" class="form-control"
+                                        required>
+                                </div>
                             <div class="mb-3">
                                 <label for="id_tahun_lulus" class="form-label">Tahun Lulus</label>
                                 <select name="id_tahun_lulus" id="id_tahun_lulus" class="form-select" required>
@@ -140,15 +149,6 @@
                             <div class="mb-3">
                                 <label for="nik" class="form-label">NIK</label>
                                 <input type="number" name="nik" id="nik" class="form-control" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="nama_depan" class="form-label">Nama Depan</label>
-                                <input type="text" name="nama_depan" id="nama_depan" class="form-control" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="nama_belakang" class="form-label">Nama Belakang</label>
-                                <input type="text" name="nama_belakang" id="nama_belakang" class="form-control"
-                                    required>
                             </div>
                             <div class="mb-3">
                                 <label for="jenis_kelamin" class="form-label">Jenis Kelamin</label>

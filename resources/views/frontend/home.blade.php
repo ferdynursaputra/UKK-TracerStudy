@@ -13,10 +13,11 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <style>
         #testimoni {
-         scroll-margin-top: 70px;
+            scroll-margin-top: 70px;
         }
+
         #contact {
-         scroll-margin-top: 70px;
+            scroll-margin-top: 70px;
         }
     </style>
 </head>
@@ -181,7 +182,8 @@
             <p>Jika Anda memiliki pertanyaan atau butuh bantuan, jangan ragu untuk menghubungi kami.</p>
 
             <!-- Email Button -->
-            <a href="mailto:tracerstudy@sekolah.com" class="btn btn-primary text-white fw-semibold mb-4">Email Kami</a>
+            <a href="mailto:tracerstudy@sekolah.com" class="btn btn-primary text-white fw-semibold mb-4">Email
+                Kami</a>
 
             <!-- Contact Form -->
             <div class="mt-5">
@@ -202,8 +204,7 @@
                     <button type="submit" class="btn btn-primary">Kirim Pesan</button>
                 </form>
             </div>
-
-
+        </div>
     </section>
 
     <!-- Footer -->

@@ -138,157 +138,175 @@
                     <div class="mb-3">
                         <label for="akun_ig" class="form-label">Akun Instagram</label>
                         <input type="text" name="akun_ig" id="akun_ig" class="form-control"
-                            value="{{ old('akun_ig', $alumni->akun_ig) }}" required>
+                            value="{{ old('akun_ig', $alumni->akun_ig) }}">
                     </div>
 
                     <div class="mb-3">
                         <label for="akun_fb" class="form-label">Akun Facebook</label>
                         <input type="text" name="akun_fb" id="akun_fb" class="form-control"
-                            value="{{ old('akun_fb', $alumni->akun_fb) }}" required>
+                            value="{{ old('akun_fb', $alumni->akun_fb) }}">
                     </div>
 
                     <div class="mb-3">
                         <label for="akun_tiktok" class="form-label">Akun TikTok</label>
                         <input type="text" name="akun_tiktok" id="akun_tiktok" class="form-control"
-                            value="{{ old('akun_tiktok', $alumni->akun_tiktok) }}" required>
+                            value="{{ old('akun_tiktok', $alumni->akun_tiktok) }}">
                     </div>
 
                 </div>
             </div>
+
+            <!-- Cek apakah sudah ada data tracer kuliah -->
 
             <!-- Card untuk Tracer Kuliah -->
             <div class="card shadow mb-4">
                 <div class="card-body">
                     <h2 class="card-title text-center mb-4">Tracer Kuliah</h2>
+                    @if ($alumni->tracerKuliah)
+                        @csrf
+                        @method('PUT')
 
-                    @csrf
-                    @method('PUT')
-                    <input type="hidden" name="id_tracer_kuliah"
-                        value="{{ $alumni->tracerKuliah->id_tracer_kuliah }}">
-                    <div class="mb-3">
-                        <label for="tracer_kuliah_kampus" class="form-label">Nama Kampus</label>
-                        <input type="text" name="tracer_kuliah_kampus" id="tracer_kuliah_kampus"
-                            class="form-control"
-                            value="{{ old('tracer_kuliah_kampus', $alumni->tracerKuliah->tracer_kuliah_kampus) }}"
-                            required>
-                    </div>
+                        <input type="hidden" name="id_tracer_kuliah"
+                            value="{{ $alumni->tracerKuliah->id_tracer_kuliah }}">
 
-                    <div class="mb-3">
-                        <label for="tracer_kuliah_status" class="form-label">Status Kuliah</label>
-                        <select id="tracer_kuliah_status" name="tracer_kuliah_status" class="form-select" required>
-                            <option value="Aktif"
-                                {{ Auth::guard('alumni')->user()->tracer_kuliah_status == 'Aktif' ? 'selected' : '' }}>
-                                Aktif</option>
-                            <option value="Lulus"
-                                {{ Auth::guard('alumni')->user()->tracer_kuliah_status == 'Lulus' ? 'selected' : '' }}>
-                                Lulus</option>
-                            <option value="Drop Out"
-                                {{ Auth::guard('alumni')->user()->tracer_kuliah_status == 'Drop Out' ? 'selected' : '' }}>
-                                Drop Out</option>
-                        </select>
-                    </div>
+                        <div class="mb-3">
+                            <label for="tracer_kuliah_kampus" class="form-label">Nama Kampus</label>
+                            <input type="text" name="tracer_kuliah_kampus" id="tracer_kuliah_kampus"
+                                class="form-control"
+                                value="{{ old('tracer_kuliah_kampus', $alumni->tracerKuliah->tracer_kuliah_kampus) }}">
+                        </div>
 
-                    <div class="mb-3">
-                        <label for="tracer_kuliah_jenjang" class="form-label">Jenjang Pendidikan</label>
-                        <input type="text" name="tracer_kuliah_jenjang" id="tracer_kuliah_jenjang"
-                            class="form-control"
-                            value="{{ old('tracer_kuliah_jenjang', $alumni->tracerKuliah->tracer_kuliah_jenjang) }}"
-                            required>
-                    </div>
+                        <div class="mb-3">
+                            <label for="tracer_kuliah_status" class="form-label">Status Kuliah</label>
+                            <select id="tracer_kuliah_status" name="tracer_kuliah_status" class="form-select">
+                                <option value="Aktif"
+                                    {{ Auth::guard('alumni')->user()->tracer_kuliah_status == 'Aktif' ? 'selected' : '' }}>
+                                    Aktif</option>
+                                <option value="Lulus"
+                                    {{ Auth::guard('alumni')->user()->tracer_kuliah_status == 'Lulus' ? 'selected' : '' }}>
+                                    Lulus</option>
+                                <option value="Drop Out"
+                                    {{ Auth::guard('alumni')->user()->tracer_kuliah_status == 'Drop Out' ? 'selected' : '' }}>
+                                    Drop Out</option>
+                            </select>
+                        </div>
 
-                    <div class="mb-3">
-                        <label for="tracer_kuliah_jurusan" class="form-label">Jurusan</label>
-                        <input type="text" name="tracer_kuliah_jurusan" id="tracer_kuliah_jurusan"
-                            class="form-control"
-                            value="{{ old('tracer_kuliah_jurusan', $alumni->tracerKuliah->tracer_kuliah_jurusan) }}"
-                            required>
-                    </div>
+                        <div class="mb-3">
+                            <label for="tracer_kuliah_jenjang" class="form-label">Jenjang Pendidikan</label>
+                            <input type="text" name="tracer_kuliah_jenjang" id="tracer_kuliah_jenjang"
+                                class="form-control"
+                                value="{{ old('tracer_kuliah_jenjang', $alumni->tracerKuliah->tracer_kuliah_jenjang) }}">
+                        </div>
 
-                    <div class="mb-3">
-                        <label for="tracer_kuliah_linier" class="form-label">Linier dengan SMK</label>
-                        <select id="tracer_kuliah_linier" name="tracer_kuliah_linier" class="form-select" required>
-                            <option value="1"
-                                {{ Auth::guard('alumni')->user()->tracer_kuliah_linier ? 'selected' : '' }}>Ya</option>
-                            <option value="0"
-                                {{ !Auth::guard('alumni')->user()->tracer_kuliah_linier ? 'selected' : '' }}>Tidak
-                            </option>
-                        </select>
-                    </div>
+                        <div class="mb-3">
+                            <label for="tracer_kuliah_jurusan" class="form-label">Jurusan</label>
+                            <input type="text" name="tracer_kuliah_jurusan" id="tracer_kuliah_jurusan"
+                                class="form-control"
+                                value="{{ old('tracer_kuliah_jurusan', $alumni->tracerKuliah->tracer_kuliah_jurusan) }}">
+                        </div>
 
-                    <div class="mb-3">
-                        <label for="tracer_kuliah_alamat" class="form-label">Alamat kampus</label>
-                        <textarea name="tracer_kuliah_alamat" id="tracer_kuliah_alamat" class="form-control" rows="3">{{ old('tracer_kuliah_alamat', $alumni->tracerKuliah->tracer_kuliah_alamat) }}</textarea>
-                    </div>
+                        <div class="mb-3">
+                            <label for="tracer_kuliah_linier" class="form-label">Linier dengan SMK</label>
+                            <select id="tracer_kuliah_linier" name="tracer_kuliah_linier" class="form-select">
+                                <option value="1"
+                                    {{ Auth::guard('alumni')->user()->tracer_kuliah_linier ? 'selected' : '' }}>Ya
+                                </option>
+                                <option value="0"
+                                    {{ !Auth::guard('alumni')->user()->tracer_kuliah_linier ? 'selected' : '' }}>Tidak
+                                </option>
+                            </select>
+                        </div>
 
+                        <div class="mb-3">
+                            <label for="tracer_kuliah_alamat" class="form-label">Alamat kampus</label>
+                            <textarea name="tracer_kuliah_alamat" id="tracer_kuliah_alamat" class="form-control" rows="3">
+                                {{ old('tracer_kuliah_alamat', $alumni->tracerKuliah->tracer_kuliah_alamat) }}</textarea>
+                        </div>
+                    @else
+                        <div class="col-12 fs-5">
+                            <p class="text-danger">Informasi tracer Kuliah belum tersedia. Silakan lengkapi data Anda.
+                            </p>
+                        </div>
+                    @endif
                 </div>
             </div>
+
+
 
             <!-- Card untuk Tracer Kerja -->
             <div class="card shadow mb-4">
                 <div class="card-body">
                     <h2 class="card-title text-center mb-4">Tracer Kerja</h2>
+                    @if ($alumni->tracerKerja)
+                        @csrf
+                        @method('PUT')
+                        <input type="hidden" name="id_tracer_kerja"
+                            value="{{ $alumni->tracerKerja ? $alumni->tracerKerja->id_tracer_kerja : '' }}">
 
-                    @csrf
-                    @method('PUT')
-                    <input type="hidden" name="id_tracer_kerja"
-                        value="{{ $alumni->tracerKerja->id_tracer_kerja }}">
-                    <div class="mb-3">
-                        <label for="tracer_kerja_pekerjaan" class="form-label">Pekerjaan</label>
-                        <input type="text" name="tracer_kerja_pekerjaan" id="tracer_kerja_pekerjaan"
-                            class="form-control"
-                            value="{{ old('tracer_kerja_pekerjaan', $alumni->tracerKerja->tracer_kerja_pekerjaan) }}"
-                            required>
-                    </div>
+                        <div class="mb-3">
+                            <label for="tracer_kerja_pekerjaan" class="form-label">Pekerjaan</label>
+                            <input type="text" name="tracer_kerja_pekerjaan" id="tracer_kerja_pekerjaan"
+                                class="form-control"
+                                value="{{ old('tracer_kerja_pekerjaan', $alumni->tracerKerja->tracer_kerja_pekerjaan ?? '') }}">
+                        </div>
 
-                    <div class="mb-3">
-                        <label for="tracer_kerja_nama" class="form-label">Nama Tempat Kerja</label>
-                        <input type="text" name="tracer_kerja_nama" id="tracer_kerja_nama" class="form-control"
-                            value="{{ old('tracer_kerja_nama', $alumni->tracerKerja->tracer_kerja_nama) }}" required>
-                    </div>
+                        <div class="mb-3">
+                            <label for="tracer_kerja_nama" class="form-label">Nama Tempat Kerja</label>
+                            <input type="text" name="tracer_kerja_nama" id="tracer_kerja_nama"
+                                class="form-control"
+                                value="{{ old('tracer_kerja_nama', $alumni->tracerKerja->tracer_kerja_nama ?? '') }}">
+                        </div>
 
-                    <div class="mb-3">
-                        <label for="tracer_kerja_jabatan" class="form-label">Jabatan</label>
-                        <input type="text" name="tracer_kerja_jabatan" id="tracer_kerja_jabatan"
-                            class="form-control"
-                            value="{{ old('tracer_kerja_jabatan', $alumni->tracerKerja->tracer_kerja_jabatan) }}"
-                            required>
-                    </div>
+                        <div class="mb-3">
+                            <label for="tracer_kerja_jabatan" class="form-label">Jabatan</label>
+                            <input type="text" name="tracer_kerja_jabatan" id="tracer_kerja_jabatan"
+                                class="form-control"
+                                value="{{ old('tracer_kerja_jabatan', $alumni->tracerKerja->tracer_kerja_jabatan ?? '') }}">
+                        </div>
 
-                    <div class="mb-3">
-                        <label for="tracer_kerja_status" class="form-label">Status</label>
-                        <input type="text" name="tracer_kerja_status" id="tracer_kerja_status"
-                            class="form-control"
-                            value="{{ old('tracer_kerja_status', $alumni->tracerKerja->tracer_kerja_status) }}"
-                            required>
-                    </div>
+                        <div class="mb-3">
+                            <label for="tracer_kerja_status" class="form-label">Status</label>
+                            <select id="tracer_kerja_status" name="tracer_kerja_status" class="form-select">
+                                <option value="Tetap"
+                                    {{ Auth::guard('alumni')->user()->tracer_kerja_status == 'Aktif' ? 'selected' : '' }}>
+                                    Tetap</option>
+                                <option value="Kontrak"
+                                    {{ Auth::guard('alumni')->user()->tracer_kerja_status == 'Lulus' ? 'selected' : '' }}>
+                                    Kontrak</option>
+                            </select>
+                        </div>
 
-                    <div class="mb-3">
-                        <label for="tracer_kerja_lokasi" class="form-label">Lokasi</label>
-                        <input type="text" name="tracer_kerja_lokasi" id="tracer_kerja_lokasi"
-                            class="form-control"
-                            value="{{ old('tracer_kerja_lokasi', $alumni->tracerKerja->tracer_kerja_lokasi) }}"
-                            required>
-                    </div>
+                        <div class="mb-3">
+                            <label for="tracer_kerja_lokasi" class="form-label">Lokasi</label>
+                            <input type="text" name="tracer_kerja_lokasi" id="tracer_kerja_lokasi"
+                                class="form-control"
+                                value="{{ old('tracer_kerja_lokasi', $alumni->tracerKerja->tracer_kerja_lokasi ?? '') }}">
+                        </div>
 
-                    <div class="mb-3">
-                        <label for="tracer_kerja_alamat" class="form-label">Alamat</label>
-                        <textarea name="tracer_kerja_alamat" id="tracer_kerja_alamat" class="form-control" rows="3">{{ old('tracer_kerja_alamat', $alumni->tracerKerja->tracer_kerja_alamat) }}</textarea>
-                    </div>
+                        <div class="mb-3">
+                            <label for="tracer_kerja_alamat" class="form-label">Alamat</label>
+                            <textarea name="tracer_kerja_alamat" id="tracer_kerja_alamat" class="form-control" rows="3">{{ old('tracer_kerja_alamat', $alumni->tracerKerja->tracer_kerja_alamat ?? '') }}</textarea>
+                        </div>
 
-                    <div class="mb-3">
-                        <label for="tracer_kerja_tgl_mulai" class="form-label">Tanggal Mulai</label>
-                        <input type="date" name="tracer_kerja_tgl_mulai" id="tracer_kerja_tgl_mulai"
-                            class="form-control"
-                            value="{{ old('tracer_kerja_tgl_mulai', $alumni->tracerKerja->tracer_kerja_tgl_mulai) }}"
-                            required>
-                    </div>
+                        <div class="mb-3">
+                            <label for="tracer_kerja_tgl_mulai" class="form-label">Tanggal Mulai Kerja</label>
+                            <input type="date" name="tracer_kerja_tgl_mulai" id="tracer_kerja_tgl_mulai"
+                                class="form-control"
+                                value="{{ old('tracer_kerja_tgl_mulai', $alumni->tracerKerja->tracer_kerja_tgl_mulai ?? '') }}">
+                        </div>
 
-                    <div class="mb-3">
-                        <label for="tracer_kerja_gaji" class="form-label">Gaji</label>
-                        <input type="number" name="tracer_kerja_gaji" id="tracer_kerja_gaji" class="form-control"
-                            value="{{ old('tracer_kerja_gaji', $alumni->tracerKerja->tracer_kerja_gaji) }}" required>
-                    </div>
-
+                        <div class="mb-3">
+                            <label for="tracer_kerja_gaji" class="form-label">Gaji</label>
+                            <input type="number" name="tracer_kerja_gaji" id="tracer_kerja_gaji"
+                                class="form-control"
+                                value="{{ old('tracer_kerja_gaji', $alumni->tracerKerja->tracer_kerja_gaji ?? '') }}">
+                        </div>
+                    @else
+                        <div class="col-12 fs-5">
+                            <p class="text-danger">Informasi tracer Kerja belum tersedia. Silakan lengkapi data Anda.
+                            </p>
+                        </div>
+                    @endif
                 </div>
             </div>
 
@@ -299,6 +317,7 @@
             </div>
         </form>
     </div>
+
 
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
